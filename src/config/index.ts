@@ -1,4 +1,4 @@
-// run side effects from these files
+// ensures side effects from these files are run
 import "./logger" // Replaces console.log
 
 // dependencies
@@ -7,6 +7,8 @@ import path from "path"
 
 dotenv.config({ path: path.join(__dirname, '../../.env') });
 
+// Declare needed and unused env variables
+// This ensures a more coherent scheme for those across projects
 const envVars = {
   NODE_ENV: process.env.NODE_ENV as string,
   PORT: process.env.PORT as string,
@@ -25,12 +27,17 @@ const envVars = {
   EMAIL_FROM: null
 }
 
+// Organize env variables for consumption by client code
+// And possibly compute widely used constants
 const config = {
+
   env: envVars.NODE_ENV,
   port: envVars.PORT,
+
   database: {
     url: envVars.DATABASE_URL
   },
+
   mongoose: {
     url: envVars.MONGODB_URL,
     options: {
@@ -39,12 +46,14 @@ const config = {
       useUnifiedTopology: true,
     },
   },
+
   jwt: {
     secret: envVars.JWT_SECRET,
     accessExpirationMinutes: envVars.JWT_ACCESS_EXPIRATION_MINUTES,
     refreshExpirationDays: envVars.JWT_REFRESH_EXPIRATION_DAYS,
     resetPasswordExpirationMinutes: 10,
   },
+
   email: {
     smtp: {
       host: envVars.SMTP_HOST,
@@ -56,6 +65,7 @@ const config = {
     },
     from: envVars.EMAIL_FROM,
   },
+
 };
 
 export default config;
