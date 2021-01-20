@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "clean": "rimraf dist/*",
+    "clean": "rimraf dist/* && rm *.log",
     "dev:watch": "ts-node-dev --respawn src/server.ts",
     "dev:index": "ts-node src/index.ts",
     "dev": "ts-node src/server.ts",
