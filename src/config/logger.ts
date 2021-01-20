@@ -3,7 +3,7 @@ import winston from "winston"
 const logger = winston.createLogger({
     level: 'info',
     format: winston.format.json(),
-    defaultMeta: { service: 'user-service' },
+    defaultMeta: { },
     transports: [
       //
       // - Write all logs with level `error` and below to `error.log`
@@ -19,9 +19,15 @@ const logger = winston.createLogger({
   // `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
   //
   if (process.env.NODE_ENV !== 'production') {
-    logger.add(new winston.transports.Console({
-      format: winston.format.simple(),
-    }));
+    logger.add(
+        new winston.transports.Console({
+            format: winston.format.combine(
+                      winston.format.colorize({}),
+                      winston.format.simple(),
+                      winston.format.align()
+                    )
+          })
+    );
 }
 
 //
